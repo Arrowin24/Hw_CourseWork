@@ -3,8 +3,8 @@ public class EmployeeBook {
 
 
     //Базовый конструктор
-    public EmployeeBook(Employee[] employees) {
-        this.employees = employees;
+    public EmployeeBook(int bookSize) {
+        employees = new Employee[bookSize];
     }
 
     //Баз. слож. пункт 8.А
@@ -35,12 +35,14 @@ public class EmployeeBook {
         double minSalary = Double.MAX_VALUE;
         Employee target = null;
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (minSalary > employee.getSalary()) {
-                    target = employee;
-                    minSalary = employee.getSalary();
-                }
+            if (employee == null) {
+                continue;
             }
+            if (minSalary > employee.getSalary()) {
+                target = employee;
+                minSalary = employee.getSalary();
+            }
+
         }
         return target;
     }
@@ -51,12 +53,14 @@ public class EmployeeBook {
         double maxSalary = 0;
         Employee target = null;
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (maxSalary < employee.getSalary()) {
-                    target = employee;
-                    maxSalary = employee.getSalary();
-                }
+            if (employee == null) {
+                continue;
             }
+            if (maxSalary < employee.getSalary()) {
+                target = employee;
+                maxSalary = employee.getSalary();
+            }
+
         }
         return target;
     }
@@ -98,14 +102,16 @@ public class EmployeeBook {
         double minSalary = Integer.MAX_VALUE;
         Employee target = null;
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (employee.getDepartment() == department) {
-                    if (minSalary > employee.getSalary()) {
-                        minSalary = employee.getSalary();
-                        target = employee;
-                    }
-                }
+            if (employee == null) {
+                continue;
             }
+            if (employee.getDepartment() == department && minSalary > employee.getSalary()) {
+                minSalary = employee.getSalary();
+                target = employee;
+            }
+        }
+        if (minSalary == 0) {
+            throw new IllegalArgumentException("В отделе нет ни одного работника");
         }
         return target;
     }
@@ -116,13 +122,12 @@ public class EmployeeBook {
         double maxSalary = 0;
         Employee target = null;
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (employee.getDepartment() == department) {
-                    if (maxSalary < employee.getSalary()) {
-                        maxSalary = employee.getSalary();
-                        target = employee;
-                    }
-                }
+            if (employee == null) {
+                continue;
+            }
+            if (employee.getDepartment() == department && maxSalary < employee.getSalary()) {
+                maxSalary = employee.getSalary();
+                target = employee;
             }
         }
         if (maxSalary == 0) {
@@ -136,10 +141,11 @@ public class EmployeeBook {
     public double getTotalSalaryFromDepartment(int department) {
         double totalSalary = 0;
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (employee.getDepartment() == department) {
-                    totalSalary += employee.getSalary();
-                }
+            if (employee == null) {
+                continue;
+            }
+            if (employee.getDepartment() == department) {
+                totalSalary += employee.getSalary();
             }
         }
         if (totalSalary == 0) {
@@ -154,11 +160,15 @@ public class EmployeeBook {
         double total = getTotalSalaryFromDepartment(department);
         int employeeNum = 0;
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (employee.getDepartment() == department) {
-                    employeeNum++;
-                }
+            if (employee == null) {
+                continue;
             }
+            if (employee.getDepartment() == department) {
+                employeeNum++;
+            }
+        }
+        if (employeeNum == 0) {
+            throw new IllegalArgumentException("В отделе нет ни одного работника");
         }
         return total / employeeNum;
     }
@@ -167,10 +177,11 @@ public class EmployeeBook {
     //Index salary employee of department
     public void indexSalaryEmployeesOfDepartment(int department, double percent) {
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (employee.getDepartment() == department) {
-                    employee.setSalary(employee.getSalary() * (1 + percent / 100));
-                }
+            if (employee == null) {
+                continue;
+            }
+            if (employee.getDepartment() == department) {
+                employee.setSalary(employee.getSalary() * (1 + percent / 100));
             }
         }
     }
@@ -179,11 +190,13 @@ public class EmployeeBook {
     //Print information of department employees
     public void printEmployeesOfDepartment(int department) {
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (employee.getDepartment() == department) {
-                    System.out.println(employee.toString().replace("Работает в отделе №" + department + ". ", ""));
-                }
+            if (employee == null) {
+                continue;
             }
+            if (employee.getDepartment() == department) {
+                System.out.println(employee.toString().replace("Работает в отделе №" + department + ". ", ""));
+            }
+
         }
     }
 
@@ -191,11 +204,13 @@ public class EmployeeBook {
     //Print information of employee with salary below threshold
     public void printEmployeesSalaryBelowThreshold(double threshold) {
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (employee.getSalary() < threshold) {
-                    System.out.println(employee.toString().replace("Работает в отделе №" + employee.getDepartment() + ". ", ""));
-                }
+            if (employee == null) {
+                continue;
             }
+            if (employee.getSalary() < threshold) {
+                System.out.println(employee.toString().replace("Работает в отделе №" + employee.getDepartment() + ". ", ""));
+            }
+
         }
     }
 
@@ -203,12 +218,14 @@ public class EmployeeBook {
     //Print information of employee with salary above threshold
     public void printEmployeesSalaryAboveThreshold(double threshold) {
         for (Employee employee : employees) {
-            if (employee != null) {
-                if (employee.getSalary() > threshold) {
-                    System.out.println(employee.toString().replace("Работает в отделе №" + employee.getDepartment() + ". ", ""));
-                }
+            if (employee == null) {
+                continue;
+            }
+            if (employee.getSalary() > threshold) {
+                System.out.println(employee.toString().replace("Работает в отделе №" + employee.getDepartment() + ". ", ""));
             }
         }
+
     }
 
     //Очень сложно пункт 4.А
@@ -232,6 +249,9 @@ public class EmployeeBook {
     //remove employee from data using name or id
     public void removeEmployee(int id) {
         for (int i = 0; i < employees.length; i++) {
+            if (employees[i] == null) {
+                continue;
+            }
             if (employees[i].getId() == id) {
                 employees[i] = null;
                 return;
@@ -242,6 +262,9 @@ public class EmployeeBook {
 
     public void removeEmployee(String employeeName) {
         for (int i = 0; i < employees.length; i++) {
+            if (employees[i] == null) {
+                continue;
+            }
             if (employees[i].getName().equals(employeeName)) {
                 employees[i] = null;
                 return;
@@ -254,6 +277,9 @@ public class EmployeeBook {
     //Change employee salary
     public void changeSalaryEmployee(String employeeName, double salary) {
         for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            }
             if (employee.getName().equals(employeeName)) {
                 employee.setSalary(salary);
                 return;
@@ -265,6 +291,9 @@ public class EmployeeBook {
     //Change employee department
     public void changeDepartmentEmployee(String employeeName, int department) {
         for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            }
             if (employee.getName().equals(employeeName)) {
                 employee.setDepartment(department);
                 return;
@@ -275,8 +304,8 @@ public class EmployeeBook {
     //Оень сложно пункт 6.
     //Print employees sorted by Departments
     public void printEmployeesSortedByDepartments() {
-        for(int i=1;i<=5;i++){
-            System.out.println("Список сотрудников из отдела № "+i);
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Список сотрудников из отдела № " + i);
             printEmployeesOfDepartment(i);
         }
     }

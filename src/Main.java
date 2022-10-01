@@ -1,23 +1,18 @@
 public class Main {
     public static void main(String[] args) {
-
-        Employee[] employees = new Employee[10];
-        employees[0] = new Employee("Федотов А. Е.", 4, 10_000);
-        employees[1] = new Employee("Федотова Л. А.", 4, 20_000);
-        employees[2] = new Employee("Федосеев А. Е.", 1, 30_000);
-        employees[3] = new Employee("Федоров П. К.", 2, 40_000);
-        employees[4] = new Employee("Асмодеев А. Е.", 5, 50_000);
-        //  employeeBook[5] = new Employee("Туранов А. Е.", 5, 85_000);
-        employees[6] = new Employee("Кревеня У. Е.", 3, 60_000);
-        employees[7] = new Employee("Прухлов П. П.", 3, 70_000);
-        employees[8] = new Employee("Амеба Е. Е.", 4, 80_000);
-        employees[9] = new Employee("Федотов А. Е.", 4, 90_000);
-
-        EmployeeBook employeeBook = new EmployeeBook(employees);
+        EmployeeBook employeeBook = new EmployeeBook(10);
+        employeeBook.addEmployee(new Employee("Федотов А. Е.", 4, 10_000));
+        employeeBook.addEmployee(new Employee("Федотова Л. А.", 4, 20_000));
+        employeeBook.addEmployee(new Employee("Федотова Л. А.", 4, 20_000));
+        employeeBook.addEmployee( new Employee("Федосеев А. Е.", 1, 30_000));
+        employeeBook.addEmployee(new Employee("Федоров П. К.", 2, 40_000));
+        employeeBook.addEmployee(new Employee("Асмодеев А. Е.", 5, 50_000));
+        employeeBook.addEmployee(new Employee("Кревеня У. Е.", 3, 60_000));
+        employeeBook.addEmployee(new Employee("Прухлов П. П.", 3, 70_000));
+        employeeBook.addEmployee(new Employee("Амеба Е. Е.", 4, 80_000));
+        employeeBook.addEmployee(new Employee("Федотов А. Е.", 4, 90_000));
 
         testMethods(employeeBook);
-
-
     }
 
     public static void testMethods(EmployeeBook employeeBook){
@@ -60,9 +55,5 @@ public class Main {
         employeeBook.changeSalaryEmployee("Пупков П. П.",30_000);
         employeeBook.printEmployeesSortedByDepartments();
 
-
-
     }
-
-
 }
