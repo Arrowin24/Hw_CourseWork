@@ -12,6 +12,7 @@ public class Main {
         employeeBook.addEmployee(new Employee("Амеба Е. Е.", 4, 80_000));
         employeeBook.addEmployee(new Employee("Федотов А. Е.", 4, 90_000));
 
+
         testMethods(employeeBook);
     }
 
